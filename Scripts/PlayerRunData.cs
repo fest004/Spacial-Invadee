@@ -1,3 +1,4 @@
+/*
 using UnityEngine;
 
 public class PlayerRunData : MonoBehaviour 
@@ -24,3 +25,4 @@ public class PlayerRunData : MonoBehaviour
 		#endregion
 	}
 }
+*/
