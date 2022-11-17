@@ -170,5 +170,6 @@ MonoBehaviour:
   baseDamage: 0
   scaleDamage: 0
   currentDamage: 0
-  bulletSpeed: 10
+  bulletSpeed: 0
+  firerate: 0
   bulletRB: {fileID: 5921596502529425619}

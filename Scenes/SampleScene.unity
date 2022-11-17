@@ -831,7 +831,7 @@ MonoBehaviour:
   scaleDamage: 0
   currentDamage: 0
   bulletSpeed: 20
-  firerate: 2
+  firerate: 3
   firePointLeft: {fileID: 257767885}
   firePointRight: {fileID: 1919472152}
   baseAttackBullet: {fileID: 206038522516939101, guid: 773f0b1f15c938540874f19f42d4eace, type: 3}
