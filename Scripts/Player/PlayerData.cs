@@ -45,6 +45,8 @@ public class AttackData : MonoBehaviour
   public float scaleDamage;
   public float currentDamage;
   public float bulletSpeed;
+  public float roundsPerSecond;
   public float firerate;
   protected int firerateTimer;
+
 }

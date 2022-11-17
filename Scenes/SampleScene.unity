@@ -405,7 +405,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1207571387}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 22, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -495,7 +495,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1504319020
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -831,7 +831,7 @@ MonoBehaviour:
   scaleDamage: 0
   currentDamage: 0
   bulletSpeed: 20
-  firerate: 3
+  roundsPerSecond: 15
   firePointLeft: {fileID: 257767885}
   firePointRight: {fileID: 1919472152}
   baseAttackBullet: {fileID: 206038522516939101, guid: 773f0b1f15c938540874f19f42d4eace, type: 3}

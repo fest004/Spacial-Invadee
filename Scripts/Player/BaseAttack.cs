@@ -5,6 +5,8 @@ public class BaseAttack : AttackData
   public Transform firePointLeft;
   public Transform firePointRight;
   private Transform firePoint;
+  private float timeLeft;
+  private bool canFire;
 
 
   public GameObject baseAttackBullet;
@@ -14,18 +16,28 @@ public class BaseAttack : AttackData
   void Start() {
     firePoint = firePointRight;
     objectPooler = ObjectPooler.Instance;
+    timeLeft = 0f;
+    canFire = true;
   }
 
 
-  void FixedUpdate() {
-    if (Input.GetKey(KeyCode.Space)) {
-      firerateTimer += 1;
+  void FixedUpdate() 
+  {
+    timeLeft -= Time.deltaTime;
 
-    if (firerateTimer >= firerate) {
+    if (timeLeft < 0 && Input.GetKey(KeyCode.Space)) {
       Shoot();
-      firerateTimer = 0;
+      timeLeft = 20 / roundsPerSecond;
     }
-    }
+
+    // if (Input.GetKey(KeyCode.Space )) {
+    //   firerateTimer++;
+    // }
+    // if (firerateTimer >= firerate) {
+    //   Shoot();
+    //   firerateTimer = 0;
+    // }
+
   }
 
   void Shoot() 
