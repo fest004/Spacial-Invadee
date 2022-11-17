@@ -1,3 +1,4 @@
+using UnityEngine.Audio;
 using UnityEngine;
 
 public class PlayerWASD : PlayerMovement 
@@ -29,12 +30,12 @@ public class PlayerWASD : PlayerMovement
 
     #region Check Key Let Go
     if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S)) {
-      Debug.Log("y");
+      // Debug.Log("y");
       moveInput.y = 0; 
     }
 
     if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A)) {
-      Debug.Log("x");
+      // Debug.Log("x");
       moveInput.x = 0; 
     }
 
@@ -47,6 +48,15 @@ public class PlayerWASD : PlayerMovement
     animator.SetFloat("Horizontal", moveInput.x);
     animator.SetFloat("Vertical", moveInput.y);
     animator.SetFloat("Speed", moveInput.sqrMagnitude);
+
+
+    // if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A)) {
+      // FindObjectOfType<AudioManager>().Play("ShipMoving");
+    // }
+
+    // if (Input.GetKeyUp(KeyCode.W) && Input.GetKeyUp(KeyCode.A)) {
+      // FindObjectOfType<AudioManager>().Stop("ShipMoving");
+    // }
   }
 
   void FixedUpdate() 

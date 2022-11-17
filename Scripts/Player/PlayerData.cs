@@ -5,7 +5,7 @@ public class PlayerData : MonoBehaviour
   protected Rigidbody2D RB;
   
 
-  public void Start() 
+  void Start() 
   {
     RB = GetComponent<Rigidbody2D>();
   }
@@ -37,4 +37,14 @@ public class PlayerMovement : PlayerData
 
   //#region Attack
 
+}
+
+public class AttackData : MonoBehaviour 
+{
+  public float baseDamage;
+  public float scaleDamage;
+  public float currentDamage;
+  public float bulletSpeed;
+  public float firerate;
+  protected int firerateTimer;
 }
