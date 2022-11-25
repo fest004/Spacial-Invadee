@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class PlayerData : MonoBehaviour
 {
   protected Rigidbody2D RB;
@@ -32,6 +31,13 @@ public class PlayerMovement : PlayerData
   // Direction player is going
   protected float movement;
   protected Vector2 moveInput;
+
+  //Dash variables 
+  protected bool canDash = true;
+  protected bool isDashing = false;
+  public float dashingPower; 
+  public float dashingTime;
+  public float dashingCooldown;
 
   #endregion
 

@@ -1,4 +1,5 @@
 using UnityEngine.Audio;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerWASD : PlayerMovement 
@@ -6,8 +7,16 @@ public class PlayerWASD : PlayerMovement
   // Animator variable
   public Animator animator;
 
+  // [SerializeField] private TrailRenderer trailDefault;
+  [SerializeField] private TrailRenderer trailDash;
+
   void Update() 
   {
+    if (isDashing)
+    {
+      return;
+    }
+
     #region GET INPUT
     if (Input.GetKey(KeyCode.W)) {
       moveInput.y = 1; 
@@ -43,6 +52,14 @@ public class PlayerWASD : PlayerMovement
       moveInput.Set(0, 0);
       isMoving = 0;
     }
+
+
+    //Dashing 
+
+    if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+    {
+      StartCoroutine(Dash());
+    }
     #endregion
 
     animator.SetFloat("Horizontal", moveInput.x);
@@ -61,6 +78,11 @@ public class PlayerWASD : PlayerMovement
 
   void FixedUpdate() 
   {
+
+    if (isDashing)
+    {
+      return;
+    }
     #region Calculate speed and applying to RB
     // isMoving is either maxSpeed or zero, which will tell us if we are moving 
     targetSpeed = isMoving * maxSpeed;
@@ -80,6 +102,21 @@ public class PlayerWASD : PlayerMovement
       RB.AddForce(movement * new Vector2(RB.velocity.x, RB.velocity.y));
     }
     #endregion
+  }
+
+  private IEnumerator Dash()
+  {
+    canDash = false;
+    isDashing = true;
+    RB.velocity = new Vector2(moveInput.x * dashingPower, moveInput.y * dashingPower);
+    // trailDefault.emitting = false;
+    trailDash.emitting = true;
+    yield return new WaitForSeconds(dashingTime);
+    isDashing = false;
+    trailDash.emitting = false;
+    // trailDefault.emitting = true;
+    yield return new WaitForSeconds(dashingCooldown);
+    canDash = true;
   }
 }
 

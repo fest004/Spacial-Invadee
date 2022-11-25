@@ -18,7 +18,7 @@ public class BaseAttack : AttackData
 
 
   void FixedUpdate() {
-    if (Input.GetKey(KeyCode.Space)) {
+      if (Input.GetKey(KeyCode.Space)) {
       firerateTimer += 1;
       if (firerateTimer >= firerate) {
         Shoot();
