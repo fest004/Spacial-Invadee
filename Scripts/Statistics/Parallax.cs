@@ -24,7 +24,7 @@ public class Parallax : MonoBehaviour
         previousCameraPosition = _camera.position;
     }
     
-    void LateUpdate()
+    void Update()
     {
        Vector3 _movement = CameraMovement; 
        if (_movement == Vector3.zero) return;

@@ -28,6 +28,11 @@ public class LaserAttack : AttackData
 
     void Shoot(float firePower) 
     {
-        
+        Debug.Log(firePower);
+        RaycastHit2D hitInfo = Physics2D.Raycast(firePoint.position, firePoint.up);
+
+        if (hitInfo) {
+        Debug.Log(hitInfo.transform.tag);
+        }
     }
 }
