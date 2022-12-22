@@ -7,8 +7,20 @@ public class PlayerWASD : PlayerMovement
   // Animator variable
   public Animator animator;
 
-  // [SerializeField] private TrailRenderer trailDefault;
-  [SerializeField] private TrailRenderer trailDash;
+  // [SerializeField] private TrailRenderer trailDash;
+
+  //DASH 
+  protected bool canDash = true;
+  private bool isDashing = false;
+  public float dashSleepTime;
+  private Vector2 dashRefilling;
+  private bool isDashAttacking;
+  private float LastPressedDashTime;
+  public float dashEndTime;
+  public float dashEndSpeed;
+  public float dashRefillTime;
+  public float dashSpeed; 
+  public float dashingTime;
 
   void Update() 
   {
@@ -17,7 +29,39 @@ public class PlayerWASD : PlayerMovement
       return;
     }
 
-    #region GET INPUT
+    if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && isMoving > 0.01f)
+    {
+      isDashing = true;
+      StartCoroutine(Dash());
+    }
+
+    GetInput();
+    CheckKeyLetGo();
+    SetAnimationVariables();
+  }
+
+
+
+
+
+
+
+
+
+  void FixedUpdate() 
+  {
+    moveInput = Vector2.ClampMagnitude(moveInput, 1);
+
+    if (isDashing)
+    {
+      return;
+    }
+
+    ApplyForceToPlayer();
+  }
+
+  private void GetInput()
+  {
     if (Input.GetKey(KeyCode.W)) {
       moveInput.y = 1; 
       isMoving = 1; 
@@ -34,10 +78,13 @@ public class PlayerWASD : PlayerMovement
     if (Input.GetKey(KeyCode.D)) {
       moveInput.x = 1; 
       isMoving = 1;
-    } 
-    #endregion
+    }
 
-    #region Check Key Let Go
+  }
+
+
+  private void CheckKeyLetGo()
+  {
     if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S)) {
       // Debug.Log("y");
       moveInput.y = 0; 
@@ -52,38 +99,10 @@ public class PlayerWASD : PlayerMovement
       moveInput.Set(0, 0);
       isMoving = 0;
     }
-
-
-    //Dashing 
-
-    if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
-    {
-      StartCoroutine(Dash());
-    }
-    #endregion
-
-    animator.SetFloat("Horizontal", moveInput.x);
-    animator.SetFloat("Vertical", moveInput.y);
-    animator.SetFloat("Speed", moveInput.sqrMagnitude);
-
-
-    // if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A)) {
-      // FindObjectOfType<AudioManager>().Play("ShipMoving");
-    // }
-
-    // if (Input.GetKeyUp(KeyCode.W) && Input.GetKeyUp(KeyCode.A)) {
-      // FindObjectOfType<AudioManager>().Stop("ShipMoving");
-    // }
   }
-
-  void FixedUpdate() 
+  
+  private void ApplyForceToPlayer()
   {
-
-    if (isDashing)
-    {
-      return;
-    }
-    #region Calculate speed and applying to RB
     // isMoving is either maxSpeed or zero, which will tell us if we are moving 
     targetSpeed = isMoving * maxSpeed;
 
@@ -101,22 +120,59 @@ public class PlayerWASD : PlayerMovement
     } else {
       RB.AddForce(movement * new Vector2(RB.velocity.x, RB.velocity.y));
     }
-    #endregion
   }
 
   private IEnumerator Dash()
   {
-    canDash = false;
-    isDashing = true;
-    RB.velocity = new Vector2(moveInput.x * dashingPower, moveInput.y * dashingPower);
-    // trailDefault.emitting = false;
-    trailDash.emitting = true;
-    yield return new WaitForSeconds(dashingTime);
+    Sleep(dashSleepTime);
+    
+    float startTime = Time.time;
+
+    while (Time.time - startTime <= dashingTime) 
+    {
+      RB.velocity = moveInput.normalized * dashSpeed;
+
+      yield return null;
+    }
+
+    startTime = Time.time;
+
+    RB.velocity = dashEndSpeed * moveInput.normalized;
+
+    while (Time.time - startTime <= dashEndTime) {
+      yield return null;
+    }
+
     isDashing = false;
-    trailDash.emitting = false;
-    // trailDefault.emitting = true;
-    yield return new WaitForSeconds(dashingCooldown);
+    yield return new WaitForSeconds(dashRefillTime);
+    canDash = true;
+
+  }
+
+
+  private IEnumerator DashRefill() 
+  {
+    yield return new WaitForSeconds(dashRefillTime);
     canDash = true;
   }
-}
 
+  private void SetAnimationVariables()
+  {
+    animator.SetFloat("Horizontal", moveInput.x);
+    animator.SetFloat("Vertical", moveInput.y);
+    animator.SetFloat("Speed", moveInput.sqrMagnitude);
+  }
+
+  private void Sleep(float duration)
+    {
+		StartCoroutine(nameof(PerformSleep), duration);
+    }
+
+	private IEnumerator PerformSleep(float duration)
+    {
+		Time.timeScale = 0;
+		yield return new WaitForSecondsRealtime(duration); //Must be Realtime since timeScale with be 0 
+		Time.timeScale = 1;
+	}
+
+}

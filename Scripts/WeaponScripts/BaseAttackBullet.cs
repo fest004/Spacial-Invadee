@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class BaseAttackBullet : AttackData, InterfacePooledObject
+public class BaseAttackBullet : MonoBehaviour, InterfacePooledObject
 {
   public Rigidbody2D bulletRB;
 
+  public float bulletSpeed;
 
   public void OnObjectSpawn() 
   {

@@ -127,7 +127,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &7685178816188461912
 BoxCollider2D:
@@ -167,9 +167,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8116e6a5c0b950248a18b71f293c0c99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 0
-  scaleDamage: 0
-  currentDamage: 0
-  bulletSpeed: 25
-  firerate: 0
   bulletRB: {fileID: 5921596502529425619}
+  bulletSpeed: 25

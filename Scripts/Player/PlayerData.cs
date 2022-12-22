@@ -33,12 +33,12 @@ public class PlayerMovement : PlayerData
   protected Vector2 moveInput;
 
   //Dash variables 
-  protected bool canDash = true;
-  protected bool isDashing = false;
-  public float dashingPower; 
-  public float dashingTime;
-  public float dashingCooldown;
-
+  // protected bool canDash = true;
+  // protected bool isDashing = false;
+  // public float dashingPower; 
+  // public float dashingTime;
+  // public float dashingCooldown;
+  //
   #endregion
 
   //#region Attack
@@ -47,10 +47,4 @@ public class PlayerMovement : PlayerData
 
 public class AttackData : MonoBehaviour 
 {
-  public float baseDamage;
-  public float scaleDamage;
-  public float currentDamage;
-  public float bulletSpeed;
-  public float firerate;
-  protected int firerateTimer;
 }
