@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BaseAttack : AttackData 
+public class BaseAttack : MonoBehaviour
 {
   public Transform firePointLeft;
   public Transform firePointRight;

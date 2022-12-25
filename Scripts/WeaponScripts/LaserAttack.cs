@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaserAttack : AttackData
+public class LaserAttack : MonoBehaviour
 {
 
     // Stats and setters for the gun
